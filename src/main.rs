@@ -1,9 +1,9 @@
-use structs::CoronalMassEjectionResponse;
-
 #[macro_use]
 extern crate rocket;
 
-use rocket::response::status;
+use rocket::serde::json::Json;
+use structs::CoronalMassEjectionResponse;
+
 mod structs;
 mod toml_reader;
 
@@ -13,14 +13,11 @@ fn goodbye() -> String {
 }
 
 #[get("/coronal-mass-ejections")]
-fn get_coronal_mass_ejections() -> status::Accepted<CoronalMassEjectionResponse> {
-    return status::Accepted(Some(CoronalMassEjectionResponse::new()));
+fn get_coronal_mass_ejections() -> Json<CoronalMassEjectionResponse> {
+    Json(CoronalMassEjectionResponse::new())
 }
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![goodbye]).mount(
-        "/coronal-mass-ejections",
-        routes![get_coronal_mass_ejections],
-    )
+    rocket::build().mount("/", routes![goodbye, get_coronal_mass_ejections])
 }

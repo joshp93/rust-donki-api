@@ -1,3 +1,6 @@
+[build]
+rustflags = ["-C", "link-arg=-fuse-ld=lld"]
+
 [package]
 name = "rust-donki-api"
 version = "0.1.0"
@@ -6,6 +9,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-rocket = "0.5.0-rc.2"
+rocket = { version = "0.5.0-rc.2", features = ["json"] }
 toml = "0.5"
 serde = "1.0"
+#reqwest = { version = "0.11", features = ["json"] }
